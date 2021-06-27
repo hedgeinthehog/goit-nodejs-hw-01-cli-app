@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/hedgeinthehog/goit-nodejs-hw-01-cli-app/issues"
   },
-  "homepage": "https://github.com/hedgeinthehog/goit-nodejs-hw-01-cli-app#readme"
+  "homepage": "https://github.com/hedgeinthehog/goit-nodejs-hw-01-cli-app#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
 }
