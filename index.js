@@ -16,40 +16,40 @@ const argv = program.opts();
 
 async function invokeAction({ action, id, name, email, phone }) {
   switch (action) {
-		case 'list':
-			try {
-				const contactList = await contacts.listContacts();
-			  console.table(contactList);
-			} catch (error) {
-				console.log(error)
-			}
+    case 'list':
+      try {
+        const contactList = await contacts.listContacts();
+        console.table(contactList);
+      } catch (error) {
+        console.log(error);
+      }
       break;
 
-		case 'get':
-			try {
-				const contact = await contacts.getContactById(id);
-			  console.log(contact);
-			} catch (error) {
-				console.log(error);
-			}
+    case 'get':
+      try {
+        const contact = await contacts.getContactById(id);
+        console.log(contact);
+      } catch (error) {
+        console.log(error);
+      }
       break;
 
-		case 'add':
-			try {
-				const newContact = await contacts.addContact(name, email, phone);
-			  console.log(newContact);
-			} catch (error) {
-				console.log(error);
-			}
-			break;
+    case 'add':
+      try {
+        const newContact = await contacts.addContact(name, email, phone);
+        console.log(newContact);
+      } catch (error) {
+        console.log(error);
+      }
+      break;
 
-		case 'remove':
-			try {
-				await contacts.removeContact(id);
-				console.log('Contact has been removed successfully')
-			} catch (error) {
-				console.log(error);
-			}
+    case 'remove':
+      try {
+        await contacts.removeContact(id);
+        console.log('Contact has been removed successfully');
+      } catch (error) {
+        console.log(error);
+      }
       break;
 
     default:
@@ -58,5 +58,3 @@ async function invokeAction({ action, id, name, email, phone }) {
 }
 
 invokeAction(argv);
-
-

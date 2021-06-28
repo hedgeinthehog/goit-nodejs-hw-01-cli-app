@@ -7,77 +7,77 @@ const contactsPath = path.join(__dirname, 'db', 'contacts.json');
 
 async function listContacts() {
   try {
-      const data = await fs.readFile(contactsPath, 'utf-8');
-      const contacts = JSON.parse(data);
+    const data = await fs.readFile(contactsPath, 'utf-8');
+    const contacts = JSON.parse(data);
 
-      return contacts;
+    return contacts;
   } catch (error) {
-      error.message = "Couldn't get contacts"
-      throw error;
+    error.message = "Couldn't get contacts";
+    throw error;
   }
 }
 
 async function getContactById(contactId) {
   try {
-		const contacts = await listContacts();
-		const contact = contacts.find(contact => {
-			const contactIdStringified = contact.id.toString();
-			
-			return contactIdStringified === contactId;
-		});
+    const contacts = await listContacts();
+    const contact = contacts.find(contact => {
+      const contactIdStringified = contact.id.toString();
+
+      return contactIdStringified === contactId;
+    });
 
     if (!contact) {
-        throw new Error("No contact with such id")
+      throw new Error('No contact with such id');
     }
 
-	  return contact;
+    return contact;
   } catch (error) {
-    throw(error)
+    throw error;
   }
-};
+}
 
 async function removeContact(contactId) {
-	try {
-		const contacts = await listContacts();
+  try {
+    const contacts = await listContacts();
 
-		const contactExists = contacts.find(contact => {
-			const contactIdStringified = contact.id.toString();
-			return contactIdStringified === contactId;
-		});
-	  if (!contactExists) {
-      throw new Error("No contact with such id")
-	  }
+    const contactExists = contacts.find(contact => {
+      const contactIdStringified = contact.id.toString();
+      return contactIdStringified === contactId;
+    });
+    if (!contactExists) {
+      throw new Error('No contact with such id');
+    }
 
-		const updatedContacts = contacts.filter(contact => {
-			const contactIdStringified = contact.id.toString();
-			return contactIdStringified !== contactId;
-		});
+    const updatedContacts = contacts.filter(contact => {
+      const contactIdStringified = contact.id.toString();
+      return contactIdStringified !== contactId;
+    });
 
-	  await fs.writeFile(contactsPath, JSON.stringify(updatedContacts))
+    await fs.writeFile(contactsPath, JSON.stringify(updatedContacts));
   } catch (error) {
-	  throw error;
+    throw error;
   }
 }
 
 async function addContact(name, email, phone) {
-	const id = uuidv4();
-	const newContact = { id, name, email, phone }
-	
-	try {
-		const contacts = await listContacts();
-		const updatedContacts = contacts.concat(newContact)
+  const id = uuidv4();
+  const newContact = { id, name, email, phone };
 
-		await fs.writeFile(contactsPath, JSON.stringify(updatedContacts))
+  try {
+    const contacts = await listContacts();
+    const updatedContacts = contacts.concat(newContact);
 
-		return newContact;
-	} catch (error) {
-		throw error;
-	}
+    await fs.writeFile(contactsPath, JSON.stringify(updatedContacts));
+
+    return newContact;
+  } catch (error) {
+    throw error;
+  }
 }
 
 module.exports = {
-	listContacts,
-	getContactById,
-	removeContact,
-	addContact,
-}
+  listContacts,
+  getContactById,
+  removeContact,
+  addContact,
+};
